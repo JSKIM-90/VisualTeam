@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENOBIT 실행 가이드</title>
+    <style>
+        @media print {
+            .page-break { page-break-after: always; }
+            body { font-size: 11pt; }
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            color: #333;
+        }
+        
+        .cover {
+            text-align: center;
+            padding: 100px 0;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        .cover h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .cover .subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        
+        .cover .date {
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        
+        h4 {
+            color: #555;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        
+        .intro-box {
+            background: #e8f4f8;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .flow-chart {
+            background: white;
+            border: 2px solid #3498db;
+            padding: 15px;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .arrow {
+            text-align: center;
+            font-size: 1.5em;
+            color: #3498db;
+            margin: 5px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .key-point {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border: 2px solid #3498db;
+        }
+        
+        .matrix-cell {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .matrix-cell.p0 {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .matrix-cell.p1 {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        .matrix-cell.p2 {
+            background: #cce5ff;
+            border-color: #3498db;
+        }
+        
+        .matrix-cell.p3 {
+            background: #f8f9fa;
+            border-color: #6c757d;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .badge-a { background: #28a745; color: white; }
+        .badge-b { background: #17a2b8; color: white; }
+        .badge-c { background: #ffc107; color: black; }
+        .badge-d { background: #6c757d; color: white; }
+        .badge-e { background: #dc3545; color: white; }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .badge-p0 { background: #dc3545; color: white; }
+        .badge-p1 { background: #ffc107; color: black; }
+        .badge-p2 { background: #17a2b8; color: white; }
+        .badge-p3 { background: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="cover">
+    <h1>RENOBIT 실행 가이드</h1>
+    <div class="subtitle">전략을 실행으로 전환하기:<br>개발 항목 분류 및 우선순위 체계</div>
+    <div class="date">2025년 10월</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="intro-box">
+    <h3>이 문서의 목적</h3>
+    <p><strong>전략에서 실행으로:</strong> "대시보드 중심 플랫폼"이라는 전략을 실제 개발 계획으로 전환하는 방법</p>
+    
+    <p><strong>핵심 질문:</strong></p>
+    <ul>
+        <li>"구체적으로 무엇을 개발해야 하는가?"</li>
+        <li>"어떤 순서로 진행해야 하는가?"</li>
+        <li>"이게 전략과 맞는가?"</li>
+    </ul>
+    
+    <p><strong>이 문서가 제공하는 것:</strong></p>
+    <ul>
+        <li>개발 항목 분류 체계</li>
+        <li>우선순위 결정 프레임워크</li>
+        <li>실전 적용 예시</li>
+        <li>추적 및 관리 방법</li>
+    </ul>
+</div>
+
+<h2>1. 왜 분류가 필요한가?</h2>
+
+<h3>1.1 전략 없이 개발하면</h3>
+
+<div class="danger-box">
+<h4>일반적인 실패 패턴</h4>
+
+<div class="flow-chart" style="background: #f8d7da;">요청이 들어온다</div>
+<div class="arrow">↓</div>
+<div class="flow-chart" style="background: #f8d7da;">"급한 거니까 바로 해야지"</div>
+<div class="arrow">↓</div>
+<div class="flow-chart" style="background: #f8d7da;">개발한다</div>
+<div class="arrow">↓</div>
+<div class="flow-chart" style="background: #f8d7da;">또 요청이 들어온다</div>
+<div class="arrow">↓</div>
+<div class="flow-chart" style="background: #f8d7da;">끝없는 반복...</div>
+
+<p class="key-point">결과: 전략 없이 떠밀리는 개발</p>
+<ul>
+    <li>패턴화 진행 없음</li>
+    <li>템플릿 구축 실패</li>
+    <li>전략 목표 미달성</li>
+</ul>
+</div>
+
+<h3>1.2 분류가 주는 4가지 가치</h3>
+
+<table>
+    <tr>
+        <th>가치</th>
+        <th>설명</th>
+        <th>효과</th>
+    </tr>
+    <tr>
+        <td><strong>1. 우선순위 명확화</strong></td>
+        <td>전략 중심으로 순서 결정</td>
+        <td>패턴화 > Pain Point > 버그</td>
+    </tr>
+    <tr>
+        <td><strong>2. 리소스 배분</strong></td>
+        <td>시간을 어디에 쓸지 계획</td>
+        <td>"이번 달: 패턴 70%, UX 20%, 버그 10%"</td>
+    </tr>
+    <tr>
+        <td><strong>3. 전략 정렬도 검증</strong></td>
+        <td>실제 개발이 전략과 맞는지 확인</td>
+        <td>전략 부합 80% 이상 → 올바른 방향</td>
+    </tr>
+    <tr>
+        <td><strong>4. 성과 측정</strong></td>
+        <td>무엇을 했는지 정량화</td>
+        <td>"3개월간 패턴 5개, UX 10개 완료"</td>
+    </tr>
+</table>
+
+<h3>1.3 분류 vs 무분류 비교</h3>
+
+<div class="box">
+<h4>시나리오 비교 (3개월)</h4>
+
+<p><strong>무분류 접근:</strong></p>
+<ul>
+    <li>들어오는 요청 순서대로 처리</li>
+    <li>버그 20개, 기능 추가 15개, 문서 5개</li>
+    <li>결과: 바쁘지만 패턴화 0%, 전략 진행 없음</li>
+</ul>
+
+<p><strong>분류 접근:</strong></p>
+<ul>
+    <li>전략 우선순위로 처리</li>
+    <li>패턴 5개, UX 개선 8개, 버그 10개, 문서 3개</li>
+    <li>결과: 템플릿 구축 50% 완료, 전략 가시적 진행</li>
+</ul>
+</div>
+
+<div class="page-break"></div>
+
+<h2>2. 분류 체계</h2>
+
+<h3>2.1 3단계 분류</h3>
+
+<div class="success-box">
+<h4>분류 순서</h4>
+
+<div class="flow-chart">개발 항목</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">1차: 전략 정렬도 (A/B/C/D/E)</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">2차: 작업 유형 (Pattern/UX/Quality/Doc/Tech Debt/Reject)</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">3차: 우선순위 (P0/P1/P2/P3)</div>
+</div>
+
+<h3>2.2 1차 분류: 전략 정렬도</h3>
+
+<table>
+    <tr>
+        <th>카테고리</th>
+        <th>설명</th>
+        <th>예시</th>
+        <th>리소스 배분</th>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-a">A</span><br><strong>전략 핵심</strong></td>
+        <td>Must Have<br>패턴화, 템플릿 구축</td>
+        <td>
+            • 대시보드 템플릿<br>
+            • Chart 프리셋<br>
+            • Dataset 마법사
+        </td>
+        <td><strong>60-70%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-b">B</span><br><strong>전략 지원</strong></td>
+        <td>Should Have<br>Pain Point 개선</td>
+        <td>
+            • Quick Start<br>
+            • 에러 메시지 개선<br>
+            • UX 향상
+        </td>
+        <td><strong>20-30%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-c">C</span><br><strong>기본 유지</strong></td>
+        <td>Need to Have<br>품질, 안정성</td>
+        <td>
+            • 버그 수정<br>
+            • 성능 개선<br>
+            • 기술 부채
+        </td>
+        <td><strong>10-20%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-d">D</span><br><strong>문서화</strong></td>
+        <td>필수 지원<br>학습 비용 감소</td>
+        <td>
+            • Tutorial 재구성<br>
+            • API 레퍼런스<br>
+            • 가이드 작성
+        </td>
+        <td><strong>A/B에 포함</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-e">E</span><br><strong>거절</strong></td>
+        <td>전략 무관<br>범위 밖</td>
+        <td>
+            • 폼 빌더<br>
+            • 워크플로우 엔진<br>
+            • 복잡한 라우팅
+        </td>
+        <td><strong>0%</strong></td>
+    </tr>
+</table>
+
+<div class="warning-box">
+<h4>⚠️ 리소스 배분 원칙</h4>
+<p><span class="key-point">A+B 합계가 80% 이상이어야 전략이 진행됩니다</span></p>
+<ul>
+    <li>A(패턴화) 60-70%: 전략의 핵심</li>
+    <li>B(UX) 20-30%: 사용성 확보</li>
+    <li>C(품질) 10-20%: 최소 유지</li>
+</ul>
+<p>C가 30% 이상이면: 전략 진행 불가, 품질 관리 실패 신호</p>
+</div>
+
+<h3>2.3 2차 분류: 작업 유형</h3>
+
+<table>
+    <tr>
+        <th>유형</th>
+        <th>설명</th>
+        <th>판단 기준</th>
+    </tr>
+    <tr>
+        <td><strong>Pattern</strong><br>(패턴화)</td>
+        <td>반복 패턴 식별 및 템플릿화</td>
+        <td>• 3회 이상 반복<br>• 재사용 가능<br>• 템플릿화 가능</td>
+    </tr>
+    <tr>
+        <td><strong>UX</strong><br>(사용자 경험)</td>
+        <td>Pain Point 개선</td>
+        <td>• 대시보드 영역 내<br>• 학습 비용 감소<br>• 생산성 향상</td>
+    </tr>
+    <tr>
+        <td><strong>Quality</strong><br>(품질)</td>
+        <td>버그, 성능, 안정성</td>
+        <td>• 기능 오류<br>• 성능 이슈<br>• 안정성 문제</td>
+    </tr>
+    <tr>
+        <td><strong>Doc</strong><br>(문서화)</td>
+        <td>가이드, 튜토리얼</td>
+        <td>• 학습 자료<br>• 참고 문서<br>• API 레퍼런스</td>
+    </tr>
+    <tr>
+        <td><strong>Tech Debt</strong><br>(기술 부채)</td>
+        <td>리팩토링, 구조 개선</td>
+        <td>• 코드 품질<br>• 유지보수성<br>• 확장성</td>
+    </tr>
+    <tr>
+        <td><strong>Reject</strong><br>(거절)</td>
+        <td>전략 범위 밖</td>
+        <td>• 대시보드 아님<br>• 패턴화 불가<br>• 구조 변경 필요</td>
+    </tr>
+</table>
+
+<h3>2.4 3차 분류: 우선순위</h3>
+
+<table>
+    <tr>
+        <th>우선순위</th>
+        <th>기한</th>
+        <th>조건</th>
+        <th>예시</th>
+    </tr>
+    <tr>
+        <td><span class="priority-badge badge-p0">P0</span><br><strong>긴급</strong></td>
+        <td>1주 내</td>
+        <td>
+            • 전략 핵심 AND<br>
+            • 즉시 효과 AND<br>
+            • 구현 비용 낮음
+        </td>
+        <td>
+            • 첫 템플릿 1개<br>
+            • Quick Start<br>
+            • 치명적 버그
+        </td>
+    </tr>
+    <tr>
+        <td><span class="priority-badge badge-p1">P1</span><br><strong>높음</strong></td>
+        <td>1개월 내</td>
+        <td>
+            • 전략 핵심 OR<br>
+            • 중요 Pain Point
+        </td>
+        <td>
+            • 템플릿 추가<br>
+            • Dataset 마법사<br>
+            • 주요 UX 개선
+        </td>
+    </tr>
+    <tr>
+        <td><span class="priority-badge badge-p2">P2</span><br><strong>중간</strong></td>
+        <td>3개월 내</td>
+        <td>
+            • 전략 지원<br>
+            • 일반 개선
+        </td>
+        <td>
+            • 추가 기능<br>
+            • 문서화<br>
+            • 성능 개선
+        </td>
+    </tr>
+    <tr>
+        <td><span class="priority-badge badge-p3">P3</span><br><strong>낮음</strong></td>
+        <td>필요시</td>
+        <td>
+            • Nice to have<br>
+            • 시간 있을 때
+        </td>
+        <td>
+            • 부가 기능<br>
+            • 최적화<br>
+            • 편의 기능
+        </td>
+    </tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>3. 우선순위 결정 프레임워크</h2>
+
+<h3>3.1 우선순위 매트릭스</h3>
+
+<div class="box">
+<h4>2차원 평가</h4>
+<p style="text-align: center; font-family: monospace; line-height: 2;">
+    <strong>전략 부합도 (높음)</strong><br>
+    ↑<br>
+    │<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;P0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;P1<br>
+    │&nbsp;(즉시 실행)&nbsp;│&nbsp;(1개월 내)<br>
+    │<br>
+    ├──────────────┼──────────────→ <strong>구현 난이도</strong><br>
+    │<br>
+    │&nbsp;&nbsp;&nbsp;&nbsp;P2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;P3<br>
+    │&nbsp;(3개월 내)&nbsp;│&nbsp;&nbsp;(필요시)<br>
+    │<br>
+    ↓<br>
+    <strong>전략 부합도 (낮음)</strong>
+</p>
+</div>
+
+<div class="matrix">
+    <div class="matrix-cell p0">
+        <h4>P0: 즉시 실행</h4>
+        <p>전략 부합: 높음<br>구현 난이도: 낮음</p>
+        <p style="font-size: 0.9em;">첫 템플릿, Quick Start</p>
+    </div>
+    <div class="matrix-cell p1">
+        <h4>P1: 1개월 내</h4>
+        <p>전략 부합: 높음<br>구현 난이도: 중간</p>
+        <p style="font-size: 0.9em;">템플릿 확장, UX 개선</p>
+    </div>
+    <div class="matrix-cell p2">
+        <h4>P2: 3개월 내</h4>
+        <p>전략 부합: 중간<br>구현 난이도: 낮음</p>
+        <p style="font-size: 0.9em;">문서화, 부가 기능</p>
+    </div>
+    <div class="matrix-cell p3">
+        <h4>P3: 필요시</h4>
+        <p>전략 부합: 낮음<br>구현 난이도: 높음</p>
+        <p style="font-size: 0.9em;">Nice to have</p>
+    </div>
+</div>
+
+<h3>3.2 판단 결정 트리</h3>
+
+<div class="box">
+<div class="flow-chart">개발 항목</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">전략 핵심 (패턴화)인가?</div>
+<div style="text-align: center; margin: 10px 0;">
+    <span style="color: #28a745; font-weight: bold;">Yes</span> → 다음 단계 | 
+    <span style="color: #dc3545; font-weight: bold;">No</span> → Pain Point인가?
+</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">즉시 효과가 있는가?</div>
+<div style="text-align: center; margin: 10px 0;">
+    <span style="color: #28a745; font-weight: bold;">Yes</span> → 다음 단계 | 
+    <span style="color: #ffc107; font-weight: bold;">No</span> → P1 or P2
+</div>
+<div class="arrow">↓</div>
+<div class="flow-chart">구현 비용이 낮은가?</div>
+<div style="text-align: center; margin: 10px 0;">
+    <span style="color: #28a745; font-weight: bold;">Yes</span> → <strong>P0</strong> | 
+    <span style="color: #ffc107; font-weight: bold;">No</span> → <strong>P1</strong>
+</div>
+</div>
+
+<h3>3.3 우선순위 예외 상황</h3>
+
+<div class="warning-box">
+<h4>긴급 상황 처리</h4>
+
+<p><strong>즉시 P0로 승격:</strong></p>
+<ul>
+    <li><span class="key-point">치명적 버그:</span> 시스템 다운, 데이터 손실</li>
+    <li><span class="key-point">보안 이슈:</span> 취약점 발견</li>
+    <li><span class="key-point">고객 긴급:</span> 계약 위험</li>
+</ul>
+
+<p><strong>처리 방법:</strong></p>
+<ol>
+    <li>즉시 처리 (기존 작업 일시 중단)</li>
+    <li>원인 분석 및 재발 방지</li>
+    <li>원래 계획으로 복귀</li>
+</ol>
+
+<p class="key-point">⚠️ 주의: 모든 요청을 "긴급"이라고 하면 안 됨. 진짜 긴급만 예외 처리</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>4. 실전 적용: RENOBIT 개발 항목</h2>
+
+<h3>4.1 Category A: 전략 핵심 (패턴화)</h3>
+
+<table>
+    <tr>
+        <th style="width: 25%;">항목</th>
+        <th style="width: 30%;">설명</th>
+        <th style="width: 10%;">유형</th>
+        <th style="width: 10%;">우선순위</th>
+        <th style="width: 25%;">근거</th>
+    </tr>
+    <tr>
+        <td><strong>대시보드 템플릿 5종</strong></td>
+        <td>
+            • 설비 모니터링<br>
+            • KPI 대시보드<br>
+            • 생산 현황<br>
+            • 품질 분석<br>
+            • 실시간 알람
+        </td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>전략의 핵심, 즉시 효과</td>
+    </tr>
+    <tr>
+        <td><strong>Chart 프리셋</strong></td>
+        <td>
+            자주 쓰는 차트 설정 10종<br>
+            • 센서 라인차트<br>
+            • KPI 게이지<br>
+            • 생산량 바차트 등
+        </td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>매 프로젝트 반복, 시간 단축 70%</td>
+    </tr>
+    <tr>
+        <td><strong>Dataset 마법사</strong></td>
+        <td>
+            단계별 데이터 연결 안내<br>
+            1. 소스 선택<br>
+            2. 파라미터 설정<br>
+            3. 미리보기<br>
+            4. 저장
+        </td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>초기 설정 Pain Point, 패턴화 가능</td>
+    </tr>
+    <tr>
+        <td><strong>Layout 템플릿</strong></td>
+        <td>
+            그리드 기반 레이아웃 5종<br>
+            • 1열 전체<br>
+            • 2열 균등<br>
+            • 3열 (좌우 고정, 중앙 가변)<br>
+            • 헤더+본문<br>
+            • 대시보드 표준
+        </td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>배치 시간 단축</td>
+    </tr>
+    <tr>
+        <td><strong>DataMapping 프리셋</strong></td>
+        <td>
+            일반적 매핑 패턴<br>
+            • 1:1 매핑<br>
+            • 1:N 매핑<br>
+            • Global 데이터
+        </td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>반복 작업 자동화</td>
+    </tr>
+</table>
+
+<h3>4.2 Category B: 전략 지원 (Pain Point)</h3>
+
+<table>
+    <tr>
+        <th style="width: 25%;">항목</th>
+        <th style="width: 30%;">설명</th>
+        <th style="width: 10%;">유형</th>
+        <th style="width: 10%;">우선순위</th>
+        <th style="width: 25%;">근거</th>
+    </tr>
+    <tr>
+        <td><strong>Quick Start (5분)</strong></td>
+        <td>
+            최소 기능만 설명<br>
+            1. 템플릿 선택<br>
+            2. 데이터 연결<br>
+            3. 완성<br>
+            (현재 60p → 1p)
+        </td>
+        <td>Doc + UX</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>학습 진입 장벽 제거</td>
+    </tr>
+    <tr>
+        <td><strong>에러 메시지 개선</strong></td>
+        <td>
+            명확한 해결 방법 제시<br>
+            Before: "Error occurred"<br>
+            After: "Dataset 연결 실패. URL 확인: xxx"
+        </td>
+        <td>UX</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>디버깅 시간 50% 단축</td>
+    </tr>
+    <tr>
+        <td><strong>Resource Manager UX</strong></td>
+        <td>
+            • Drag & Drop 업로드<br>
+            • 썸네일 미리보기<br>
+            • 빠른 검색<br>
+            • 일괄 관리
+        </td>
+        <td>UX</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>자주 사용, 현재 불편</td>
+    </tr>
+    <tr>
+        <td><strong>코드 에디터 자동완성</strong></td>
+        <td>
+            API 힌트 제공<br>
+            • WKit 메서드<br>
+            • 인스턴스 속성<br>
+            • 자주 쓰는 패턴
+        </td>
+        <td>UX</td>
+        <td><span class="priority-badge badge-p2">P2</span></td>
+        <td>생산성 향상</td>
+    </tr>
+    <tr>
+        <td><strong>Component 검색</strong></td>
+        <td>
+            이름/태그로 빠른 검색<br>
+            • 텍스트 검색<br>
+            • 카테고리 필터<br>
+            • 최근 사용
+        </td>
+        <td>UX</td>
+        <td><span class="priority-badge badge-p2">P2</span></td>
+        <td>대규모 프로젝트 효율</td>
+    </tr>
+</table>
+
+<h3>4.3 Category C: 기본 유지 (품질)</h3>
+
+<table>
+    <tr>
+        <th style="width: 25%;">항목</th>
+        <th style="width: 30%;">설명</th>
+        <th style="width: 10%;">유형</th>
+        <th style="width: 10%;">우선순위</th>
+        <th style="width: 25%;">근거</th>
+    </tr>
+    <tr>
+        <td><strong>메모리 누수 수정</strong></td>
+        <td>
+            • Bootstrap dispose<br>
+            • Tabulator destroy<br>
+            • Echarts dispose<br>
+            • Three.js cleanup
+        </td>
+        <td>Quality</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>안정성 필수, 장시간 사용 시 문제</td>
+    </tr>
+    <tr>
+        <td><strong>Chart 렌더링 성능</strong></td>
+        <td>
+            대량 데이터 처리<br>
+            • 10k+ 포인트<br>
+            • 샘플링 적용<br>
+            • Progressive 렌더링
+        </td>
+        <td>Quality</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>사용자 경험, 실시간 모니터링</td>
+    </tr>
+    <tr>
+        <td><strong>Dataset 에러 핸들링</strong></td>
+        <td>
+            실패 시 명확한 피드백<br>
+            • 연결 실패<br>
+            • 타임아웃<br>
+            • 데이터 형식 오류
+        </td>
+        <td>Quality</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>안정성, 디버깅 용이</td>
+    </tr>
+    <tr>
+        <td><strong>브라우저 호환성</strong></td>
+        <td>
+            최신 브라우저 지원<br>
+            • Chrome<br>
+            • Firefox<br>
+            • Edge<br>
+            (IE 제외)
+        </td>
+        <td>Quality</td>
+        <td><span class="priority-badge badge-p2">P2</span></td>
+        <td>기본 품질</td>
+    </tr>
+</table>
+
+<h3>4.4 Category D: 문서화</h3>
+
+<table>
+    <tr>
+        <th style="width: 25%;">항목</th>
+        <th style="width: 30%;">설명</th>
+        <th style="width: 10%;">유형</th>
+        <th style="width: 10%;">우선순위</th>
+        <th style="width: 25%;">근거</th>
+    </tr>
+    <tr>
+        <td><strong>Tutorial 재구성</strong></td>
+        <td>
+            What → Why → How<br>
+            • 대시보드란?<br>
+            • 왜 RENOBIT?<br>
+            • 5분 시작하기<br>
+            (60p → 10p)
+        </td>
+        <td>Doc</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>학습 장벽, Quick Start와 함께</td>
+    </tr>
+    <tr>
+        <td><strong>API 레퍼런스</strong></td>
+        <td>
+            • WKit 메서드<br>
+            • EventBus<br>
+            • GlobalDataPublisher<br>
+            • 예제 포함
+        </td>
+        <td>Doc</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>개발자 참고 자료</td>
+    </tr>
+    <tr>
+        <td><strong>템플릿 가이드</strong></td>
+        <td>
+            각 템플릿 사용법<br>
+            • 언제 쓰나<br>
+            • 어떻게 커스터마이징<br>
+            • 사례
+        </td>
+        <td>Doc</td>
+        <td><span class="priority-badge badge-p1">P1</span></td>
+        <td>템플릿과 함께 제공</td>
+    </tr>
+    <tr>
+        <td><strong>동영상 튜토리얼</strong></td>
+        <td>
+            5분짜리 3-5개<br>
+            • 템플릿으로 시작<br>
+            • 데이터 연결<br>
+            • 차트 추가
+        </td>
+        <td>Doc</td>
+        <td><span class="priority-badge badge-p2">P2</span></td>
+        <td>빠른 학습, 보조 자료</td>
+    </tr>
+</table>
+
+<h3>4.5 Category E: 거절 항목</h3>
+
+<table>
+    <tr>
+        <th style="width: 20%;">항목</th>
+        <th style="width: 25%;">요청 내용</th>
+        <th style="width: 25%;">거절 이유</th>
+        <th style="width: 30%;">제안 대안</th>
+    </tr>
+    <tr>
+        <td><strong>폼 빌더</strong></td>
+        <td>복잡한 폼 생성 도구<br>• 드래그로 폼 구성<br>• 유효성 검증<br>• 제출 처리</td>
+        <td>대시보드 영역 밖<br>(입력 중심)</td>
+        <td>React + Formik<br>또는 React Hook Form</td>
+    </tr>
+    <tr>
+        <td><strong>워크플로우 엔진</strong></td>
+        <td>프로세스 관리<br>• 단계별 승인<br>• 상태 관리<br>• 알림</td>
+        <td>대시보드 아님<br>(프로세스 중심)</td>
+        <td>별도 플랫폼 검토<br>또는 전용 솔루션</td>
+    </tr>
+    <tr>
+        <td><strong>복잡한 SPA 라우팅</strong></td>
+        <td>10개 이상 페이지<br>• 중첩 라우팅<br>• 동적 라우트<br>• 히스토리 관리</td>
+        <td>구조적 변경 필요<br>대시보드 범위 초과</td>
+        <td>React Router<br>Next.js</td>
+    </tr>
+    <tr>
+        <td><strong>실시간 협업</strong></td>
+        <td>멀티 커서 편집<br>• CRDT<br>• WebRTC<br>• 동시 편집</td>
+        <td>범위 대폭 확대<br>아키텍처 변경</td>
+        <td>Figma, Miro 등<br>전용 협업 도구</td>
+    </tr>
+</table>
+
+<div class="danger-box">
+<h4>거절 시 커뮤니케이션</h4>
+<p><strong>나쁜 예:</strong> "안 됩니다"</p>
+<p><strong>좋은 예:</strong></p>
+<p>"폼 빌더는 RENOBIT의 대시보드 영역 밖입니다. 대시보드는 조회 중심이지만, 폼은 입력 중심이라 구조가 다릅니다. React + Formik을 사용하시면 더 빠르고 좋은 결과를 얻으실 수 있습니다. 필요하시면 샘플 코드를 드리겠습니다."</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>5. 실행 계획</h2>
+
+<h3>5.1 Phase 1: 필수 항목 (1개월)</h3>
+
+<div class="success-box">
+<h4>Week 1-2: 즉시 효과</h4>
+
+<table>
+    <tr>
+        <th>항목</th>
+        <th>목표</th>
+        <th>담당</th>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-a">A</span> 대시보드 템플릿 1종</td>
+        <td>설비 모니터링 템플릿 완성</td>
+        <td>개발팀</td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-b">B</span> Quick Start 5분</td>
+        <td>1페이지 가이드</td>
+        <td>문서팀</td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-c">C</span> 메모리 누수 수정</td>
+        <td>주요 컴포넌트 dispose</td>
+        <td>개발팀</td>
+    </tr>
+</table>
+
+<p><strong>성공 기준:</strong></p>
+<ul>
+    <li>템플릿으로 프로젝트 1개 완성 가능</li>
+    <li>신규 사용자가 5분 만에 시작</li>
+    <li>메모리 누수 0건</li>
+</ul>
+</div>
+
+<div class="success-box">
+<h4>Week 3-4: 확장</h4>
+
+<table>
+    <tr>
+        <th>항목</th>
+        <th>목표</th>
+        <th>담당</th>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-a">A</span> Chart 프리셋 5종</td>
+        <td>자주 쓰는 설정</td>
+        <td>개발팀</td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-a">A</span> Dataset 마법사 v1</td>
+        <td>단계별 안내</td>
+        <td>개발팀</td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-d">D</span> Tutorial 재구성</td>
+        <td>10페이지 핵심만</td>
+        <td>문서팀</td>
+    </tr>
+</table>
+
+<p><strong>성공 기준:</strong></p>
+<ul>
+    <li>차트 설정 시간 70% 단축</li>
+    <li>Dataset 연결 에러 50% 감소</li>
+    <li>Tutorial 완독률 80% 이상</li>
+</ul>
+</div>
+
+<h3>5.2 Phase 2: 확장 (3개월)</h3>
+
+<table>
+    <tr>
+        <th>Month</th>
+        <th>목표</th>
+        <th>주요 항목</th>
+    </tr>
+    <tr>
+        <td><strong>Month 2</strong></td>
+        <td>템플릿 확장<br>품질 향상</td>
+        <td>
+            <span class="category-badge badge-a">A</span> 템플릿 3종 추가<br>
+            <span class="category-badge badge-a">A</span> Layout 템플릿 5종<br>
+            <span class="category-badge badge-b">B</span> 에러 메시지 개선<br>
+            <span class="category-badge badge-c">C</span> Chart 성능 개선
+        </td>
+    </tr>
+    <tr>
+        <td><strong>Month 3</strong></td>
+        <td>자동화<br>문서 완성</td>
+        <td>
+            <span class="category-badge badge-a">A</span> DataMapping 프리셋<br>
+            <span class="category-badge badge-b">B</span> Resource Manager UX<br>
+            <span class="category-badge badge-b">B</span> 코드 자동완성<br>
+            <span class="category-badge badge-d">D</span> API 레퍼런스
+        </td>
+    </tr>
+</table>
+
+<h3>5.3 리소스 배분 계획</h3>
+
+<div class="box">
+<h4>월별 리소스 배분 (100% = 1 개발자 1개월)</h4>
+
+<table>
+    <tr>
+        <th>카테고리</th>
+        <th>Month 1</th>
+        <th>Month 2</th>
+        <th>Month 3</th>
+        <th>평균</th>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-a">A</span> 전략 핵심</td>
+        <td>70%</td>
+        <td>65%</td>
+        <td>60%</td>
+        <td><strong>65%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-b">B</span> 전략 지원</td>
+        <td>15%</td>
+        <td>20%</td>
+        <td>25%</td>
+        <td><strong>20%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-c">C</span> 기본 유지</td>
+        <td>10%</td>
+        <td>10%</td>
+        <td>10%</td>
+        <td><strong>10%</strong></td>
+    </tr>
+    <tr>
+        <td><span class="category-badge badge-d">D</span> 문서화</td>
+        <td>5%</td>
+        <td>5%</td>
+        <td>5%</td>
+        <td><strong>5%</strong></td>
+    </tr>
+</table>
+
+<p class="key-point">✓ A+B = 85%, 전략 집중 유지</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>6. 추적 및 관리</h2>
+
+<h3>6.1 개발 항목 트래킹</h3>
+
+<div class="box">
+<h4>트래킹 시트 예시</h4>
+
+<table style="font-size: 0.85em;">
+    <tr>
+        <th>ID</th>
+        <th>항목</th>
+        <th>분류</th>
+        <th>유형</th>
+        <th>우선순위</th>
+        <th>상태</th>
+        <th>담당자</th>
+        <th>완료일</th>
+    </tr>
+    <tr>
+        <td>A-01</td>
+        <td>설비 모니터링 템플릿</td>
+        <td><span class="category-badge badge-a">A</span></td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>진행중</td>
+        <td>Kim</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>B-01</td>
+        <td>Quick Start 5분</td>
+        <td><span class="category-badge badge-b">B</span></td>
+        <td>Doc+UX</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>대기</td>
+        <td>Lee</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>C-01</td>
+        <td>메모리 누수 수정</td>
+        <td><span class="category-badge badge-c">C</span></td>
+        <td>Quality</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>완료</td>
+        <td>Park</td>
+        <td>2025-01-15</td>
+    </tr>
+    <tr>
+        <td>A-02</td>
+        <td>Chart 프리셋 5종</td>
+        <td><span class="category-badge badge-a">A</span></td>
+        <td>Pattern</td>
+        <td><span class="priority-badge badge-p0">P0</span></td>
+        <td>대기</td>
+        <td>Kim</td>
+        <td>-</td>
+    </tr>
+</table>
+</div>
+
+<h3>6.2 주간 리뷰</h3>
+
+<div class="success-box">
+<h4>매주 금요일 체크</h4>
+
+<p><strong>Agenda:</strong></p>
+<ol>
+    <li><strong>완료 항목 확인</strong> (10분)
+        <ul>
+            <li>이번 주 완료한 것</li>
+            <li>성공 기준 충족 여부</li>
+        </ul>
+    </li>
+    <li><strong>진행 중 항목</strong> (10분)
+        <ul>
+            <li>블로커 확인</li>
+            <li>도움 필요한 것</li>
+        </ul>
+    </li>
+    <li><strong>다음 주 계획</strong> (10분)
+        <ul>
+            <li>우선순위 Top 3</li>
+            <li>담당자 배정</li>
+        </ul>
+    </li>
+    <li><strong>전략 정렬도 체크</strong> (5분)
+        <ul>
+            <li>A+B 비율 80% 이상인가?</li>
+            <li>패턴화 진행 상황</li>
+        </ul>
+    </li>
+</ol>
+</div>
+
+<h3>6.3 월간 리포트</h3>
+
+<div class="box">
+<h4>월말 정리 (템플릿)</h4>
+
+<p><strong>1. 완료 항목</strong></p>
+<ul>
+    <li>패턴화: X개 (목표 대비 Y%)</li>
+    <li>Pain Point: X개</li>
+    <li>품질: X개</li>
+</ul>
+
+<p><strong>2. 리소스 배분</strong></p>
+<ul>
+    <li>A(전략 핵심): XX%</li>
+    <li>B(전략 지원): XX%</li>
+    <li>C(기본 유지): XX%</li>
+</ul>
+
+<p><strong>3. 주요 성과</strong></p>
+<ul>
+    <li>템플릿 사용률: X%</li>
+    <li>개발 시간 단축: X%</li>
+    <li>Pain Point 해결: X건</li>
+</ul>
+
+<p><strong>4. 다음 달 계획</strong></p>
+<ul>
+    <li>우선순위 Top 5</li>
+    <li>예상 리소스</li>
+</ul>
+
+<p><strong>5. 이슈 및 리스크</strong></p>
+<ul>
+    <li>블로커</li>
+    <li>우선순위 변경</li>
+    <li>리소스 부족</li>
+</ul>
+</div>
+
+<h3>6.4 측정 지표 (KPI)</h3>
+
+<table>
+    <tr>
+        <th>지표</th>
+        <th>측정 방법</th>
+        <th>목표</th>
+        <th>주기</th>
+    </tr>
+    <tr>
+        <td><strong>패턴화 진행률</strong></td>
+        <td>완성된 템플릿 수 / 목표 템플릿 수</td>
+        <td>100% (5개)</td>
+        <td>주간</td>
+    </tr>
+    <tr>
+        <td><strong>템플릿 사용률</strong></td>
+        <td>템플릿 사용 프로젝트 / 전체 프로젝트</td>
+        <td>80% 이상</td>
+        <td>월간</td>
+    </tr>
+    <tr>
+        <td><strong>개발 시간 단축</strong></td>
+        <td>평균 프로젝트 시간 (템플릿 사용 vs 미사용)</td>
+        <td>70% 단축</td>
+        <td>월간</td>
+    </tr>
+    <tr>
+        <td><strong>전략 정렬도</strong></td>
+        <td>A+B 카테고리 비율</td>
+        <td>80% 이상</td>
+        <td>주간</td>
+    </tr>
+    <tr>
+        <td><strong>Pain Point 해결</strong></td>
+        <td>해결된 Pain Point 수</td>
+        <td>월 5개 이상</td>
+        <td>월간</td>
+    </tr>
+    <tr>
+        <td><strong>개발자 만족도</strong></td>
+        <td>설문 (5점 척도)</td>
+        <td>4.0/5.0</td>
+        <td>분기</td>
+    </tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>7. 핵심 원칙</h2>
+
+<div class="intro-box">
+<h3>실행 시 지켜야 할 7가지</h3>
+
+<h4>1. 전략 우선</h4>
+<p>A(패턴화) + B(UX) = 80% 이상 유지. 이 비율이 깨지면 전략 실패</p>
+
+<h4>2. 명확한 거절</h4>
+<p>범위 밖 요청은 정중하지만 확실하게 거절. "안 됩니다" 보다 "왜 안 되는지 + 대안"</p>
+
+<h4>3. 측정 기반</h4>
+<p>감으로 판단 금지. 데이터로 의사결정 (개발 시간, 사용률, 만족도)</p>
+
+<h4>4. 단계적 실행</h4>
+<p>한 번에 다 하려고 하지 말 것. Phase 1 → 검증 → Phase 2</p>
+
+<h4>5. 피드백 수용</h4>
+<p>계획은 고정이 아님. 주간/월간 리뷰로 조정</p>
+
+<h4>6. 팀 소통</h4>
+<p>왜 이걸 하는지, 왜 저걸 안 하는지 투명하게 공유</p>
+
+<h4>7. 작은 성공 축하</h4>
+<p>템플릿 1개 완성, 시간 단축 확인 → 팀에 공유하고 동기부여</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>8. 위험 신호</h2>
+
+<div class="warning-box">
+<h3>이런 상황이면 전략이 실패하고 있습니다</h3>
+
+<h4>🚨 신호 1: 리소스 배분 붕괴</h4>
+<ul>
+    <li>C(버그/품질) 비율이 30% 이상</li>
+    <li>A(패턴화) 비율이 50% 이하</li>
+</ul>
+<p><strong>대응:</strong> 즉시 우선순위 재조정. 긴급 버그만 처리하고 나머지는 백로그</p>
+
+<h4>🚨 신호 2: 패턴화 진행 정체</h4>
+<ul>
+    <li>3개월간 템플릿 1개도 완성 못함</li>
+    <li>항상 "다음 달에..."</li>
+</ul>
+<p><strong>대응:</strong> 범위 축소. 완벽한 템플릿보다 작동하는 템플릿 1개가 낫다</p>
+
+<h4>🚨 신호 3: 모든 게 긴급</h4>
+<ul>
+    <li>매주 P0가 10개씩 생김</li>
+    <li>"다 급해요"</li>
+</ul>
+<p><strong>대응:</strong> 거절 기준 재확인. 진짜 긴급 vs 급한 척</p>
+
+<h4>🚨 신호 4: 거절 못함</h4>
+<ul>
+    <li>E(거절) 항목을 계속 개발함</li>
+    <li>"이것도 해야 하고, 저것도 해야 하고..."</li>
+</ul>
+<p><strong>대응:</strong> 경영진 지지 확보. 전략 문서 다시 공유</p>
+
+<h4>🚨 신호 5: 측정 안 함</h4>
+<ul>
+    <li>KPI 업데이트 안 됨</li>
+    <li>주간 리뷰 스킵</li>
+</ul>
+<p><strong>대응:</strong> 프로세스 강제. 측정 없으면 관리 불가</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>9. 시작하기</h2>
+
+<div class="success-box">
+<h3>다음 주에 할 일</h3>
+
+<h4>Day 1: 항목 수집</h4>
+<ul>
+    <li>과거 프로젝트에서 반복 패턴 추출</li>
+    <li>SI 개발자 인터뷰 (Pain Point 3개씩)</li>
+    <li>버그 트래커 확인</li>
+</ul>
+
+<h4>Day 2-3: 분류 워크샵</h4>
+<ul>
+    <li>플랫폼팀 전체 참여</li>
+    <li>수집된 항목을 A/B/C/D/E 분류</li>
+    <li>우선순위 투표로 Top 10 선정</li>
+</ul>
+
+<h4>Day 4: 계획 수립</h4>
+<ul>
+    <li>Phase 1 (1개월) 상세 계획</li>
+    <li>담당자 배정</li>
+    <li>성공 기준 정의</li>
+</ul>
+
+<h4>Day 5: 시작</h4>
+<ul>
+    <li>킥오프 미팅</li>
+    <li>첫 Sprint 시작</li>
+    <li>트래킹 시트 오픈</li>
+</ul>
+</div>
+
+<h3>9.1 필요한 준비물</h3>
+
+<div class="box">
+<ul>
+    <li><strong>트래킹 시트:</strong> Google Sheets or Notion</li>
+    <li><strong>과거 프로젝트 데이터:</strong> 개발 시간, 요청 사항</li>
+    <li><strong>팀 시간:</strong> 주간 리뷰 30분 확보</li>
+    <li><strong>경영진 동의:</strong> 전략 보고서 공유 및 승인</li>
+</ul>
+</div>
+
+<h3>9.2 첫 달 성공 기준</h3>
+
+<div class="success-box">
+<p><strong>✓ 템플릿 1개 완성</strong></p>
+<p>→ 실제 프로젝트에 적용 가능</p>
+
+<p><strong>✓ Quick Start 가이드</strong></p>
+<p>→ 신규 사용자가 5분 만에 시작</p>
+
+<p><strong>✓ 개발 시간 측정</strong></p>
+<p>→ 템플릿 사용 vs 미사용 비교 데이터</p>
+
+<p><strong>✓ 주간 리뷰 4회 진행</strong></p>
+<p>→ 프로세스 정착</p>
+
+<p><strong>✓ A+B 비율 80% 이상</strong></p>
+<p>→ 전략 유지 확인</p>
+</div>
+
+<div class="page-break"></div>
+
+<h2>10. 결론</h2>
+
+<div class="intro-box">
+<h3>전략에서 실행으로</h3>
+
+<p><strong>전략이 있어도 실행이 없으면:</strong> 그냥 문서</p>
+<p><strong>실행이 있어도 전략이 없으면:</strong> 그냥 바쁨</p>
+<p><strong>전략 + 실행:</strong> 성과</p>
+
+<hr style="margin: 20px 0;">
+
+<p><strong>이 문서가 제공한 것:</strong></p>
+<ul>
+    <li>개발 항목을 전략과 연결하는 분류 체계</li>
+    <li>우선순위를 명확히 하는 프레임워크</li>
+    <li>실전 적용 가능한 예시</li>
+    <li>측정과 관리 방법</li>
+</ul>
+
+<hr style="margin: 20px 0;">
+
+<p><strong>다음 단계:</strong></p>
+<ol>
+    <li>과거 프로젝트 분석 → 패턴 추출</li>
+    <li>개발 항목 수집 → 분류</li>
+    <li>Phase 1 계획 → 실행</li>
+    <li>측정 → 조정 → 반복</li>
+</ol>
+
+<hr style="margin: 20px 0;">
+
+<p class="key-point">핵심: 전략(대시보드 집중) + 분류(A/B/C) + 측정(KPI) = 성공</p>
+</div>
+
+<div style="margin-top: 60px; text-align: center; color: #7f8c8d; border-top: 2px solid #ecf0f1; padding-top: 20px;">
+    <p>RENOBIT 실행 가이드: 전략을 실행으로 전환하기</p>
+    <p>© 2025. All rights reserved.</p>
+</div>
+
+</body>
+</html>
